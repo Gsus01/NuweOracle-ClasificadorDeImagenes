@@ -22,6 +22,21 @@ La mejor puntuación obtenida ha sido de 0.906, obtenida con la segunda solució
 
 Esta solución se encuentra en el fichero `predictions.json`. El modelo obtenido se puede encotrar en el fichero `results/best.pt`.
 
+## WebUI
+
+Se ha desarrollado una pequeña interfaz web para poder probar el clasificador. Para ejecutarla en local hay que seguir los siguientes pasos:
+
+1. Instalar las dependencias del proyecto con `pip install -r requirements.txt` desde el directorio `WebUI`.
+   ```bash
+    pip install -r requirements.txt
+    ```
+2. Ejecutar con python el fichero `app.py`. Esto iniciará el servidor en el puerto 80.
+   ```bash
+    sudo python app.py
+    ```
+
+También se puede probar de forma online pinchando [aquí](http://144.24.192.35/).
+
 ## Autores
 
 Esta solcuión ha sido desarollada por los alumnos de la UAH:
