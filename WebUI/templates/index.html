@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,10 +13,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* Ajusta la altura del contenedor al 100% de la altura de la ventana del navegador */
+            height: 100vh;
+            /* Ajusta la altura del contenedor al 100% de la altura de la ventana del navegador */
             background-color: #f0f0f0;
             margin: 0;
         }
+
         .container {
             background-color: #fff;
             padding: 30px;
@@ -25,17 +28,21 @@
             width: 80%;
             max-width: 500px;
         }
+
         .imagen {
             display: flex;
             justify-content: center;
             align-items: center;
         }
+
         h1 {
             margin-bottom: 30px;
         }
+
         input[type="file"] {
             margin-bottom: 15px;
         }
+
         button {
             background-color: #007bff;
             border: none;
@@ -46,56 +53,114 @@
             cursor: pointer;
             transition: 0.3s;
         }
+
         button:hover {
             background-color: #0056b3;
         }
+
         #uploaded-image {
             margin-top: 20px;
             margin-bottom: 20px;
         }
+
         #prediction {
             font-weight: bold;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-    <h1>Clasificador de Imágenes</h1>
-    <form id="upload-form" enctype="multipart/form-data">
-        <input type="file" name="file" id="file">
-        <button type="submit">Clasificar imagen</button>
-    </form>
-    <div class="imagen">
-    <img id="uploaded-image" src="" alt="" style="display:none; max-width: 300px;">
-    </div>
-    <h2 id="prediction"></h2>
+        <h1>Clasificador de Imágenes</h1>
+        <form id="upload-form" enctype="multipart/form-data">
+            <input type="file" name="file" id="file" style="display:none;">
+            <div id="drop-area" style="border: 2px dashed #ccc; padding: 20px;">
+                <p>Arrastra y suelta una imagen aquí o haz clic para seleccionar una.</p>
+            </div>
+            <button type="submit">Clasificar imagen</button>
+        </form>
+        <div class="imagen">
+            <img id="uploaded-image" src="" alt="" style="display:none; max-width: 300px;">
+        </div>
+        <h2 id="prediction"></h2>
     </div>
     <script>
-        $(document).ready(function() {
-            $("#upload-form").on("submit", function(event) {
-            event.preventDefault();
-            let form_data = new FormData(this);
-            $.ajax({
-                url: '/upload',
-                method: 'POST',
-                data: form_data,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    if (response.error) {
-                        alert(response.error);
-                    } else {
-                        $("#uploaded-image").attr("src", URL.createObjectURL($("#file")[0].files[0]));
-                        $("#uploaded-image").css("display", "block");
-                        $("#prediction").text("Predicción: " + response.prediction);
-                    }
-                },
-                error: function() {
-                    alert('Error al subir la imagen');
+        $(document).ready(function () {
+            $("#drop-area").on("click", function () {
+                $("#file").click();
+            });
+
+            $("#file").on("change", function () {
+                let file = this.files[0];
+                if (file) {
+                    $("#drop-area").text(file.name);
+                } else {
+                    $("#drop-area").text("Arrastra y suelta una imagen aquí o haz clic para seleccionar una.");
                 }
             });
+
+            $("#upload-form").on("submit", function (event) {
+                event.preventDefault();
+                let form_data = new FormData(this);
+                $.ajax({
+                    url: '/upload',
+                    method: 'POST',
+                    data: form_data,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.error) {
+                            alert(response.error);
+                        } else {
+                            $("#uploaded-image").attr("src", URL.createObjectURL($("#file")[0].files[0]));
+                            $("#uploaded-image").css("display", "block");
+                            $("#prediction").text("Predicción: " + response.prediction);
+                        }
+                    },
+                    error: function () {
+                        alert('Error al subir la imagen');
+                    }
+                });
+            });
+
+            let dropArea = document.getElementById("drop-area");
+
+            ["dragenter", "dragover", "dragleave", "drop"].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+            });
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            ["dragenter", "dragover"].forEach(eventName => {
+                dropArea.addEventListener(eventName, highlight, false);
+            });
+
+            ["dragleave", "drop"].forEach(eventName => {
+                dropArea.addEventListener(eventName, unhighlight, false);
+            });
+
+            function highlight(e) {
+                dropArea.style.backgroundColor = "#f0f0f0";
+            }
+            function unhighlight(e) {
+                dropArea.style.backgroundColor = "";
+            }
+
+            dropArea.addEventListener("drop", handleDrop, false);
+
+            function handleDrop(e) {
+                let dt = e.dataTransfer;
+                let files = dt.files;
+
+                $("#file")[0].files = files;
+                $("#file").trigger("change");
+            }
         });
-    });
-</script>
+    </script>
+
 </body>
+
 </html>
