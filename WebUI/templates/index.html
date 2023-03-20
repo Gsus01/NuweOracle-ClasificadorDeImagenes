@@ -41,6 +41,7 @@
 
         input[type="file"] {
             margin-bottom: 15px;
+            padding: 25;
         }
 
         button {
@@ -52,6 +53,7 @@
             border-radius: 5px;
             cursor: pointer;
             transition: 0.3s;
+            padding: 25;
         }
 
         button:hover {
@@ -72,6 +74,8 @@
 <body>
     <div class="container">
         <h1>Clasificador de Imágenes</h1>
+        <p>Este clasificador de imagenes es capaz de clasificar 8 tipos de alimentos:</p><p>Hamburguesas, Pollo frito, Donuts, Patatas Fritas, Perritos calientes, Pizza y Patatas rellenas.</p>
+
         <form id="upload-form" enctype="multipart/form-data">
             <input type="file" name="file" id="file" style="display:none;">
             <div id="drop-area" style="border: 2px dashed #ccc; padding: 20px;">
@@ -83,6 +87,9 @@
             <img id="uploaded-image" src="" alt="" style="display:none; max-width: 300px;">
         </div>
         <h2 id="prediction"></h2>
+        <a href="https://github.com/Gsus01/NuweOracle-ClasificadorDeImagenes" target="_blank">
+            <img src="https://img.icons8.com/material-sharp/24/000000/github.png" alt="GitHub">
+          </a>
     </div>
     <script>
         $(document).ready(function () {
