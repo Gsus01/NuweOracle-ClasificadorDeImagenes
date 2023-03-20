@@ -16,6 +16,12 @@ Por lo tanto la versión final es la segunda, desarrollada en el notebook `yolov
 
 3. Ejecutar el notebook `yolov8_clasificacion_oracle` en Google Colab. En el notebook se explican los pasos a seguir para ejecutarlo.
 
+## Resultados
+
+La mejor puntuación obtenida ha sido de 0.906, obtenida con la segunda solución. En ella hemos utilizado 80% de los datos para entrenamiento y 20% para validación. El modelo utilizado es el `yolov8s.pt` tras 150 epochs de entrenamiento. El resto de parámetros se han dejado por defecto. Tras probar modelos más grandes (yolov8l, yolov8x...), si bien conseguían resultados similares, este ha sido el que mejor resultado ha dado, por lo que no podemos correlacionar el tamaño del modelo con el rendimiento que nos da.
+
+Esta solución se encuentra en el fichero `results/submission.json`. El modelo obtenido se puede encotrar en el fichero `results/best.pt`.
+
 ## Autores
 
 Esta solcuión ha sido desarollada por los alumnos de la UAH:
