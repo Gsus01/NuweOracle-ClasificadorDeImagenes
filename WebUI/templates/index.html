@@ -14,7 +14,6 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            /* Ajusta la altura del contenedor al 100% de la altura de la ventana del navegador */
             background-color: #f0f0f0;
             margin: 0;
         }
@@ -37,11 +36,24 @@
 
         h1 {
             margin-bottom: 30px;
+            font-size: 2.5rem;
+            color: #007bff;
         }
 
-        input[type="file"] {
+        p {
+            font-size: 1.2rem;
+        }
+
+        .drop-area {
+            border: 2px dashed #007bff;
+            padding: 20px;
             margin-bottom: 15px;
-            padding: 25;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .drop-area:hover {
+            background-color: #f0f0f0;
         }
 
         button {
@@ -53,7 +65,7 @@
             border-radius: 5px;
             cursor: pointer;
             transition: 0.3s;
-            padding: 25;
+            margin-bottom: 25px;
         }
 
         button:hover {
@@ -63,8 +75,8 @@
         #uploaded-image {
             margin-top: 20px;
             margin-bottom: 20px;
+            border-radius: 5px;
         }
-
         #prediction {
             font-weight: bold;
         }
@@ -74,11 +86,12 @@
 <body>
     <div class="container">
         <h1>Clasificador de Imágenes</h1>
-        <p>Este clasificador de imagenes es capaz de clasificar 8 tipos de alimentos:</p><p>Hamburguesas, Pollo frito, Donuts, Patatas Fritas, Perritos calientes, Pizza y Patatas rellenas.</p>
+        <p>Este clasificador de imagenes es capaz de clasificar 8 tipos de alimentos:</p>
+        <p>Hamburguesas, Pollo frito, Donuts, Patatas Fritas, Perritos calientes, Pizza y Patatas rellenas.</p>
 
         <form id="upload-form" enctype="multipart/form-data">
             <input type="file" name="file" id="file" style="display:none;">
-            <div id="drop-area" style="border: 2px dashed #ccc; padding: 20px;">
+            <div id="drop-area" class="drop-area">
                 <p>Arrastra y suelta una imagen aquí o haz clic para seleccionar una.</p>
             </div>
             <button type="submit">Clasificar imagen</button>
@@ -89,7 +102,7 @@
         <h2 id="prediction"></h2>
         <a href="https://github.com/Gsus01/NuweOracle-ClasificadorDeImagenes" target="_blank">
             <img src="https://img.icons8.com/material-sharp/24/000000/github.png" alt="GitHub">
-          </a>
+        </a>
     </div>
     <script>
         $(document).ready(function () {
