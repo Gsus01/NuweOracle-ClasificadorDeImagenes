@@ -37,6 +37,9 @@ Se ha desarrollado una pequeña interfaz web para poder probar el clasificador. 
 
 También se puede probar de forma online pinchando [aquí](http://144.24.192.35/).
 
+![WebUI](./screenshots/base_WebUI.png)
+![WebUI](./screenshots/clasification_WebUI.png)
+
 ## Autores
 
 Esta solcuión ha sido desarollada por los alumnos de la UAH:
